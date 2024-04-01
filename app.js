@@ -5,9 +5,7 @@ const path = require('path');
 
 
 app.get('/', (req, res) => {
-    res.json({
-        success: true,
-    });
+    res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
 app.get('/auticate',(req,res) => {
