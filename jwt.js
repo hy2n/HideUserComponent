@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const secretKey = 'your_secret_key'; // 시크릿 키는 실제 프로덕션 환경에서는 보안상의 이유로 환경 변수 등을 통해 안전하게 관리해야 합니다.
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // 예시를 위한 사용자 데이터베이스 (실제로는 데이터베이스를 사용해야 함)
 const users = [
@@ -14,8 +16,8 @@ const users = [
 ];
 
 // 로그인 엔드포인트
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+app.get('/login', (req, res) => {
+    const { username, password } = req.query;
 
     // 사용자가 있는지 확인
     const user = users.find(u => u.username === username && u.password === password);
@@ -23,11 +25,13 @@ app.post('/login', (req, res) => {
     if (user) {
         // JWT 토큰 생성
         const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
-        
+
+        // 쿠키에 토큰을 저장
+        res.cookie('jwt', token, { httpOnly: true });
+
         res.json({
             success: true,
-            message: 'Login successful',
-            token: token
+            message: 'Login successful'
         });
     } else {
         res.status(401).json({
@@ -52,18 +56,12 @@ app.get('/protected', verifyToken, (req, res) => {
 
 // JWT 토큰 검증 미들웨어
 function verifyToken(req, res, next) {
-    // 헤더에서 토큰 가져오기
-    const bearerHeader = req.headers['authorization'];
+    // 쿠키에서 토큰 가져오기
+    const token = req.cookies.jwt;
 
-    if (typeof bearerHeader !== 'undefined') {
-        // Bearer 다음의 토큰 부분만 가져옴
-        const bearerToken = bearerHeader.split(' ')[1];
-
-        // 토큰 설정
-        req.token = bearerToken;
-
+    if (token) {
         // 토큰 검증
-        jwt.verify(req.token, secretKey, (err, authData) => {
+        jwt.verify(token, secretKey, (err, authData) => {
             if (err) {
                 res.status(403).json({
                     success: false,
@@ -76,7 +74,7 @@ function verifyToken(req, res, next) {
             }
         });
     } else {
-        // 헤더가 없으면 에러
+        // 토큰이 없으면 에러
         res.status(401).json({
             success: false,
             message: 'Unauthorized'
