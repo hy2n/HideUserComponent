@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<head>
+    <title>HideUserComponent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="main">
+        <div class="login">
+            <div class="lock">🔒</div>
+            <h1>This Site is Locked</h1>
+            Please Enter Access Key
+            <form method="post" action="/authAPI">
+                <input id="Mykey" type="password" autofocus><br>
+                <button type="submit">인증하기</button>
+            </form>
+            <div class="github">
+                Powered By <a href="https://github.com/hy2n/HideUserComponent">HUC</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+<style>
+    @font-face {
+        font-family: 'SUITE-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+
+    body {
+        font-family: 'SUITE-Regular';
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main {
+        padding: 20px;
+    }
+
+    .login {
+        text-align: center;
+        font-size: 1em;
+
+    }
+
+    input{
+        border-color: white;
+        background-color: rgb(234, 234, 234);
+        margin-top: 20px;
+        width: 250px;
+        height: 20px;
+        border-radius: 5px;
+        border:none;
+        text-align: center;
+    }
+
+    button {
+        background-color: rgb(158, 158, 158);
+        width: 255px;
+        height: 30px;
+        border-radius: 5px;
+        border: none;
+        margin-top: 10px;
+    }
+
+    .github {
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    a{
+        text-decoration-line: none;
+        color:black;
+    }
+
+    .lock {
+        font-size: 5em;
+    }
+</style>
