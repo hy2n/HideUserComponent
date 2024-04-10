@@ -34,7 +34,6 @@ function sendFileIfExists(req, res, next) {
 
 app.get('/', authenticateJWT, sendFileIfExists); //수정필요
 app.get('/service', authenticateJWT, sendFileIfExists); //서비스모듈
-
 app.get('/web/:file', authenticateJWT, sendFileIfExists);
 app.get('/*', authenticateJWT, sendFileIfExists);
 
