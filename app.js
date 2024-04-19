@@ -39,7 +39,6 @@ app.get('/*', authenticateJWT, sendFileIfExists);
 
 // authAPI: 사용자 인증
 app.post('/authAPI', (req, res) => {
-    // 예시: 실제 프로젝트에서는 데이터베이스를 사용하여 사용자를 확인합니다.
     const Mykey = req.body;
     // 예시: 사용자가 올바른 자격 증명을 제공했다고 가정합니다.
     if (Mykey.Mykey === 'password') {
