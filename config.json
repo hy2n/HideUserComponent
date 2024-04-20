@@ -1,4 +1,4 @@
 {
-    "JWTkey": "key_for_jwt_encription",
-    "SiteKey": "your_site_key_here"
+    "JWTkey": "myJWT_KEY",
+    "SiteKey": "my_site_password"
 }
