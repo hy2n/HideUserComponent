@@ -9,7 +9,7 @@ const bodyParser= require('body-parser')
 app.use(bodyParser.urlencoded({extended: true})) 
 
 
-const JWT_SECRET = 'your_jwt_secret_here'; // JWT 시크릿 키
+const JWT_SECRET = 'JWT'; // JWT 시크릿 키
 
 app.use(cookieParser()); // cookie-parser 미들웨어 사용
 app.use(express.json()); // JSON 파싱 미들웨어
@@ -40,7 +40,6 @@ app.get('/*', authenticateJWT, sendFileIfExists);
 // authAPI: 사용자 인증
 app.post('/authAPI', (req, res) => {
     const Mykey = req.body;
-    // 예시: 사용자가 올바른 자격 증명을 제공했다고 가정합니다.
     if (Mykey.Mykey === 'password') {
         // 사용자 정보
         const user = {
