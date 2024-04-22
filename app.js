@@ -9,7 +9,7 @@ const bodyParser= require('body-parser')
 app.use(bodyParser.urlencoded({extended: true})) 
 
 
-const JWT_SECRET = 'JWT'; // JWT 시크릿 키
+//const JWT_SECRET = 'JWT'; // JWT 시크릿 키
 
 app.use(cookieParser()); // cookie-parser 미들웨어 사용
 app.use(express.json()); // JSON 파싱 미들웨어
